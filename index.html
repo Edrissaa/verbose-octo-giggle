@@ -1,0 +1,700 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>24/7 HomePro – Cleaning & Handyman Services NJ</title>
+<link rel="icon" href="favicon.png" type="image/png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Montserrat:wght@600;700&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --navy: #072219;
+    --navy-mid: #0f4e38;
+    --navy-light: #166a53;
+    --amber: #51b848;
+    --amber-light: #d9f0d8;
+    --amber-bright: #5ec8d8;
+    --white: #ffffff;
+    --off-white: #f7f8fa;
+    --border: #e2e8f0;
+    --text: #1a2332;
+    --muted: #64748b;
+    --radius: 12px;
+    --radius-lg: 20px;
+    --shadow: 0 4px 24px rgba(10,22,40,0.08);
+    --shadow-lg: 0 12px 48px rgba(10,22,40,0.14);
+  }
+  html { scroll-behavior: smooth; }
+  body { font-family: 'Inter', sans-serif; font-size: 1.125rem; color: var(--text); background: var(--white); overflow-x: hidden; line-height: 1.75; }
+  h1, h2, h3, h4, .brand { font-family: 'Montserrat', sans-serif; }
+
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    background: var(--white); backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(7,34,25,0.08);
+    padding: 12px 5%; display: flex; align-items: center; justify-content: space-between;
+    height: 84px; transition: box-shadow 0.3s;
+  }
+  nav.scrolled { box-shadow: 0 4px 32px rgba(0,0,0,0.08); }
+  .nav-logo { font-family: 'Montserrat', sans-serif; font-size: 1.35rem; font-weight: 700; color: var(--navy); text-decoration: none; display: flex; align-items: center; gap: 10px; }
+  .nav-logo img { display: block; max-height: 75px; width: auto; }
+  .nav-logo span { color: var(--amber); }
+  .logo-badge { background: var(--amber); color: var(--navy); font-size: 0.65rem; font-weight: 700; padding: 2px 7px; border-radius: 4px; letter-spacing: 0.04em; font-family: 'Inter', sans-serif; }
+  .nav-links { display: flex; align-items: center; gap: 36px; }
+  .nav-item { position: relative; }
+  .nav-links a, .nav-dropdown-toggle { color: var(--navy); text-decoration: none; font-size: 0.88rem; font-weight: 600; transition: color 0.2s; background: none; border: none; cursor: pointer; }
+  .nav-links a:hover, .nav-dropdown-toggle:hover, .nav-dropdown-toggle:focus-visible { color: var(--amber); }
+  .nav-dropdown-toggle { display: inline-flex; align-items: center; gap: 6px; padding: 0; }
+  .dropdown-arrow { display: inline-block; transition: transform 0.2s ease; font-size: 0.82rem; }
+  .nav-item:hover .dropdown-arrow, .nav-dropdown-toggle:focus-visible .dropdown-arrow { transform: rotate(180deg); }
+  .dropdown-menu { position: absolute; top: calc(100% + 10px); left: 0; min-width: 240px; background: var(--white); box-shadow: var(--shadow-lg); border: 1px solid rgba(7,34,25,0.08); border-radius: 18px; padding: 12px 0; opacity: 0; visibility: hidden; transform: translateY(10px); transition: opacity 0.2s ease, transform 0.2s ease, visibility 0.2s; z-index: 10; }
+  .nav-item:hover .dropdown-menu, .nav-dropdown-toggle:focus-visible + .dropdown-menu { opacity: 1; visibility: visible; transform: translateY(0); }
+  .dropdown-menu a { display: block; padding: 10px 22px; color: var(--navy); text-decoration: none; font-size: 0.92rem; font-weight: 600; transition: background 0.2s, color 0.2s; }
+  .dropdown-menu a:hover { background: rgba(81,184,72,0.08); color: var(--amber); }
+  .nav-cta { background: var(--amber) !important; color: var(--navy) !important; padding: 9px 22px; border-radius: 8px; font-weight: 600 !important; transition: background 0.2s, transform 0.15s !important; }
+  .nav-cta:hover { background: var(--amber-bright) !important; transform: translateY(-1px); }
+  .nav-phone { color: rgba(7,34,25,0.8); font-size: 0.82rem; display: flex; align-items: center; gap: 6px; }
+  .nav-phone strong { color: var(--amber); font-size: 0.9rem; }
+  .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; padding: 4px; }
+  .hamburger span { display: block; width: 24px; height: 2px; background: var(--white); border-radius: 2px; transition: all 0.3s; }
+  .mobile-nav { display: none; position: fixed; top: 70px; left: 0; right: 0; z-index: 99; background: var(--white); border-bottom: 1px solid rgba(7,34,25,0.08); flex-direction: column; padding: 20px 5%; gap: 4px; }
+  .mobile-nav.open { display: flex; }
+  .mobile-nav a { color: var(--navy); text-decoration: none; padding: 11px 0; font-size: 0.95rem; font-weight: 600; border-bottom: 1px solid rgba(7,34,25,0.08); transition: color 0.2s; }
+  .mobile-nav a:hover { color: var(--amber); }
+
+  .hero { min-height: 100vh; background: var(--navy); position: relative; overflow: hidden; display: flex; align-items: center; padding: 120px 5% 80px; }
+  .hero-grid { position: absolute; inset: 0; background-image: linear-gradient(rgba(94,200,216,0.08) 1px, transparent 1px), linear-gradient(90deg, rgba(94,200,216,0.08) 1px, transparent 1px); background-size: 60px 60px; opacity: 0.5; }
+  .hero-glow { position: absolute; width: 600px; height: 600px; border-radius: 50%; background: radial-gradient(circle, rgba(94,200,216,0.16) 0%, transparent 70%); top: -100px; right: -100px; pointer-events: none; }
+  .hero-content { position: relative; z-index: 2; max-width: 720px; animation: fadeUp 0.8s ease both; }
+  .hero-eyebrow { display: inline-flex; align-items: center; gap: 8px; background: rgba(81,184,72,0.12); border: 1px solid rgba(81,184,72,0.3); color: var(--amber); font-size: 0.78rem; font-weight: 600; padding: 6px 14px; border-radius: 100px; margin-bottom: 28px; letter-spacing: 0.06em; text-transform: uppercase; }
+  .hero-eyebrow::before { content: ''; width: 6px; height: 6px; background: var(--amber); border-radius: 50%; display: inline-block; }
+  h1 { font-size: clamp(3.5rem, 6vw, 4.5rem); font-weight: 700; line-height: 1.05; color: var(--white); margin-bottom: 24px; letter-spacing: -0.02em; }
+  h1 em { color: var(--amber); font-style: normal; }
+  .hero-sub { font-size: 1.15rem; color: rgba(255,255,255,0.75); max-width: 560px; margin-bottom: 42px; line-height: 1.75; }
+  .hero-btns { display: flex; gap: 14px; flex-wrap: wrap; margin-bottom: 56px; }
+  .btn-primary { background: var(--amber); color: var(--navy); padding: 15px 32px; border-radius: 10px; font-family: 'Montserrat', sans-serif; font-weight: 600; font-size: 0.95rem; text-decoration: none; display: inline-flex; align-items: center; gap: 8px; transition: background 0.2s, transform 0.15s, box-shadow 0.2s; border: none; cursor: pointer; }
+  .btn-primary:hover { background: var(--amber-bright); transform: translateY(-2px); box-shadow: 0 8px 24px rgba(94,200,216,0.3); }
+  .btn-secondary { background: transparent; color: var(--white); padding: 15px 32px; border-radius: 10px; font-family: 'Montserrat', sans-serif; font-weight: 600; font-size: 0.95rem; text-decoration: none; display: inline-flex; align-items: center; gap: 8px; border: 1.5px solid rgba(255,255,255,0.25); transition: border-color 0.2s, color 0.2s, transform 0.15s; }
+  .btn-secondary:hover { border-color: var(--amber); color: var(--amber); transform: translateY(-2px); }
+  .hero-trust { display: flex; gap: 24px; flex-wrap: wrap; }
+  .trust-item { display: flex; align-items: center; gap: 8px; color: rgba(255,255,255,0.55); font-size: 0.82rem; }
+  .trust-item svg { color: var(--amber); flex-shrink: 0; }
+  .hero-phone-cta { position: absolute; right: 9%; top: 35%; transform: translateY(-50%); background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.1); border-radius: var(--radius-lg); padding: 28px 32px; text-align: center; backdrop-filter: blur(8px); animation: fadeUp 0.8s 0.2s ease both; }
+  .hero-phone-cta .label { color: rgba(255,255,255,0.5); font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 6px; }
+  .hero-phone-cta .number { font-family: 'Montserrat', sans-serif; font-size: 1.6rem; font-weight: 700; color: var(--amber); margin-bottom: 4px; }
+  .hero-phone-cta .sub { color: rgba(255,255,255,0.4); font-size: 0.72rem; margin-bottom: 20px; }
+  .rating-row { display: flex; align-items: center; gap: 6px; justify-content: center; margin-top: 16px; }
+  .stars { color: var(--amber); font-size: 1rem; }
+  .rating-text { color: rgba(255,255,255,0.45); font-size: 0.72rem; }
+
+  .trust-bar { background: var(--amber-bright); padding: 14px 5%; }
+  .trust-bar-inner { max-width: 1200px; margin: 0 auto; display: flex; justify-content: center; flex-wrap: wrap; gap: 20px 40px; }
+  .tb-item { display: flex; align-items: center; gap: 9px; color: var(--navy); font-size: 0.82rem; font-weight: 600; }
+
+  /* About section (inserted) */
+  .about-section { padding: 90px 5%; background: var(--white); }
+  .about-inner { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: center; }
+  .about-content h2 { font-size: clamp(1.75rem, 2.6vw, 2.25rem); color: var(--navy); margin-bottom: 12px; }
+  .about-content p.lead { font-size: 1.125rem; color: var(--text); line-height: 1.6; margin-bottom: 18px; }
+  .about-list { list-style: none; display: grid; gap: 8px; margin: 12px 0 20px; padding: 0; }
+  .about-list li { padding-left: 18px; position: relative; color: var(--text); }
+  .about-list li::before { content: '•'; position: absolute; left: 0; top: 0; color: var(--amber); font-weight: 700; }
+  .about-image { display: block; width: 100%; margin-left: 0; }
+  .about-image img { width: 100%; height: 480px; border-radius: 14px; object-fit: cover; display: block; }
+  @media (min-width:1200px) { .about-image img { height: 520px; } }
+  @media (max-width: 900px) { .about-inner { grid-template-columns: 1fr; } .about-image { max-width: 100%; margin: 20px auto 0; } .about-image img { height: 320px; } }
+
+  section { padding: 90px 5%; }
+  .section-inner { max-width: 1200px; margin: 0 auto; }
+  .section-label { display: inline-flex; align-items: center; gap: 8px; color: var(--amber); font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.1em; font-weight: 600; margin-bottom: 14px; }
+  .section-label::before { content: ''; width: 20px; height: 2px; background: var(--amber); display: inline-block; }
+  h2 { font-size: clamp(2.25rem, 3.2vw, 3rem); font-weight: 600; color: var(--navy); line-height: 1.15; letter-spacing: -0.02em; margin-bottom: 16px; }
+  h2 em { color: var(--amber); font-style: normal; }
+  .section-intro { color: var(--muted); font-size: 1.125rem; max-width: 560px; line-height: 1.75; margin-bottom: 56px; }
+
+  .services-bg { background: var(--off-white); }
+  .services-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 22px; }
+  .service-card { background: var(--white); border-radius: var(--radius-lg); padding: 32px 28px; border: 1px solid var(--border); transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s; cursor: pointer; position: relative; overflow: hidden; }
+  .service-card::after { content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 3px; background: var(--amber); transform: scaleX(0); transform-origin: left; transition: transform 0.3s ease; }
+  .service-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-lg); border-color: rgba(81,184,72,0.3); }
+  .service-card:hover::after { transform: scaleX(1); }
+  .service-icon { width: 52px; height: 52px; background: var(--amber-light); border-radius: 14px; display: flex; align-items: center; justify-content: center; margin-bottom: 20px; transition: background 0.2s; }
+  .service-card:hover .service-icon { background: var(--amber); }
+  .service-card:hover .service-icon svg { color: var(--navy); }
+  .service-icon svg { color: var(--amber); transition: color 0.2s; }
+  .service-card h3 { font-size: 1.12rem; font-weight: 600; color: var(--navy); margin-bottom: 10px; }
+  .service-card p { font-size: 1rem; color: var(--muted); line-height: 1.75; margin-bottom: 20px; }
+  .service-link { color: var(--amber); font-size: 0.82rem; font-weight: 600; text-decoration: none; display: inline-flex; align-items: center; gap: 5px; }
+
+  .stats-section { background: var(--navy); padding: 70px 5%; }
+  .stats-grid { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 1px; background: rgba(255,255,255,0.08); border-radius: var(--radius-lg); overflow: hidden; }
+  .stat-item { background: var(--navy); padding: 40px 32px; text-align: center; transition: background 0.2s; }
+  .stat-item:hover { background: var(--navy-mid); }
+  .stat-num { font-family: 'Montserrat', sans-serif; font-size: 3rem; font-weight: 800; color: var(--amber); line-height: 1; margin-bottom: 8px; }
+  .stat-label { color: rgba(255,255,255,0.5); font-size: 0.82rem; }
+
+  .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; }
+  .about-card-main { background: var(--navy); border-radius: var(--radius-lg); padding: 44px; color: var(--white); position: relative; overflow: hidden; }
+  .about-card-main::before { content: ''; position: absolute; top: -40px; right: -40px; width: 180px; height: 180px; border-radius: 50%; background: rgba(81,184,72,0.12); }
+  .about-founder { display: flex; align-items: center; gap: 14px; margin-bottom: 24px; }
+  .founder-avatar { width: 54px; height: 54px; border-radius: 50%; background: var(--amber); display: flex; align-items: center; justify-content: center; font-family: 'Montserrat', sans-serif; font-size: 1.25rem; font-weight: 800; color: var(--navy); flex-shrink: 0; }
+  .founder-name { font-family: 'Montserrat', sans-serif; font-size: 1rem; font-weight: 700; }
+  .founder-title { font-size: 0.78rem; color: rgba(255,255,255,0.5); margin-top: 2px; }
+  .about-quote { font-size: 1.05rem; line-height: 1.7; color: rgba(255,255,255,0.8); font-style: italic; border-left: 3px solid var(--amber); padding-left: 18px; }
+  .about-float-card { position: absolute; bottom: -24px; right: -24px; background: var(--white); border-radius: var(--radius); padding: 18px 22px; box-shadow: var(--shadow-lg); border: 1px solid var(--border); display: flex; align-items: center; gap: 14px; }
+  .float-icon { width: 44px; height: 44px; background: var(--amber-light); border-radius: 10px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+  .float-icon svg { color: var(--amber); }
+  .float-text strong { display: block; font-size: 1.1rem; font-family: 'Montserrat', sans-serif; color: var(--navy); font-weight: 700; }
+  .float-text span { font-size: 0.75rem; color: var(--muted); }
+  .about-text h2 { margin-bottom: 20px; }
+  .about-text p { color: var(--muted); font-size: 1.125rem; line-height: 1.75; margin-bottom: 20px; }
+  .about-checklist { list-style: none; display: grid; gap: 12px; margin: 28px 0 36px; }
+  .about-checklist li { display: flex; align-items: flex-start; gap: 10px; font-size: 0.9rem; color: var(--text); }
+  .check-icon { width: 20px; height: 20px; border-radius: 50%; background: var(--amber-light); color: var(--amber); display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 1px; font-size: 0.7rem; font-weight: 800; }
+
+  .why-bg { background: var(--off-white); }
+  .why-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 22px; }
+  .why-card { background: var(--white); border-radius: var(--radius-lg); padding: 32px 26px; border: 1px solid var(--border); transition: transform 0.2s, box-shadow 0.2s; }
+  .why-card:hover { transform: translateY(-3px); box-shadow: var(--shadow); }
+  .why-num { font-family: 'Montserrat', sans-serif; font-size: 3rem; font-weight: 800; color: rgba(81,184,72,0.15); line-height: 1; margin-bottom: 16px; }
+  .why-card h3 { font-size: 1rem; font-weight: 700; color: var(--navy); margin-bottom: 10px; }
+  .why-card p { font-size: 0.85rem; color: var(--muted); line-height: 1.7; }
+
+  .reviews-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 22px; }
+  .review-card { background: var(--white); border-radius: var(--radius-lg); padding: 30px 26px; border: 1px solid var(--border); box-shadow: var(--shadow); transition: transform 0.2s; }
+  .review-card:hover { transform: translateY(-3px); }
+  .review-stars { color: var(--amber); font-size: 0.95rem; letter-spacing: 2px; margin-bottom: 16px; }
+  .review-text { font-size: 1rem; color: var(--text); line-height: 1.75; margin-bottom: 22px; font-style: italic; border-left: 3px solid var(--amber-light); padding-left: 14px; }
+  .reviewer { display: flex; align-items: center; gap: 12px; }
+  .reviewer-avatar { width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-family: 'Montserrat', sans-serif; font-size: 0.85rem; font-weight: 700; flex-shrink: 0; color: var(--navy); }
+  .reviewer-name { font-size: 0.88rem; font-weight: 600; color: var(--navy); }
+  .reviewer-loc { font-size: 0.75rem; color: var(--muted); margin-top: 1px; }
+
+  .areas-section { background: var(--navy); }
+  .areas-section h2 { color: var(--white); }
+  .areas-section .section-intro { color: rgba(255,255,255,0.5); }
+  .areas-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 14px; }
+  .area-card { background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: var(--radius); padding: 18px 20px; display: flex; align-items: center; gap: 12px; transition: background 0.2s, border-color 0.2s; }
+  .area-card:hover { background: rgba(81,184,72,0.12); border-color: rgba(81,184,72,0.3); }
+  .area-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--amber); flex-shrink: 0; }
+  .area-state { font-size: 0.82rem; color: rgba(255,255,255,0.7); }
+  .area-name { font-size: 0.95rem; font-weight: 600; color: var(--white); }
+
+  .contact-grid { display: grid; grid-template-columns: 1fr 1.4fr; gap: 60px; align-items: start; }
+  .contact-info h2 { margin-bottom: 18px; }
+  .contact-info p { color: var(--muted); font-size: 1.125rem; line-height: 1.75; margin-bottom: 32px; }
+  .contact-methods { display: flex; flex-direction: column; gap: 18px; margin-bottom: 32px; }
+  .contact-method { display: flex; align-items: center; gap: 14px; padding: 18px 20px; background: var(--off-white); border-radius: var(--radius); border: 1px solid var(--border); text-decoration: none; transition: border-color 0.2s, background 0.2s; }
+  .contact-method:hover { border-color: var(--amber); background: var(--amber-light); }
+  .cm-icon { width: 42px; height: 42px; background: var(--amber-light); border-radius: 10px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+  .cm-icon svg { color: var(--amber); }
+  .cm-label { font-size: 0.72rem; color: var(--muted); letter-spacing: 0.05em; text-transform: uppercase; }
+  .cm-value { font-size: 0.95rem; font-weight: 600; color: var(--navy); margin-top: 2px; }
+  .license-badge { display: inline-flex; align-items: center; gap: 8px; background: var(--off-white); border: 1px solid var(--border); border-radius: 8px; padding: 10px 16px; font-size: 0.78rem; color: var(--muted); }
+  .license-badge strong { color: var(--navy); }
+  .form-card { background: var(--white); border-radius: var(--radius-lg); padding: 40px; border: 1px solid var(--border); box-shadow: var(--shadow-lg); }
+  .form-card h3 { font-size: 1.35rem; font-weight: 700; color: var(--navy); margin-bottom: 6px; }
+  .form-card .sub { color: var(--muted); font-size: 0.85rem; margin-bottom: 28px; }
+  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 16px; }
+  .form-group label { display: block; font-size: 0.78rem; font-weight: 600; color: var(--navy); margin-bottom: 6px; letter-spacing: 0.03em; }
+  .form-group input, .form-group select, .form-group textarea { width: 100%; padding: 11px 14px; border: 1.5px solid var(--border); border-radius: 8px; font-family: 'Inter', sans-serif; font-size: 0.95rem; color: var(--text); background: var(--white); transition: border-color 0.2s, box-shadow 0.2s; outline: none; }
+  .form-group input:focus, .form-group select:focus, .form-group textarea:focus { border-color: var(--amber); box-shadow: 0 0 0 3px rgba(81,184,72,0.12); }
+  .form-group textarea { resize: vertical; min-height: 100px; }
+  .form-full { margin-bottom: 16px; }
+  .form-submit { width: 100%; padding: 15px; font-size: 1rem; font-family: 'Montserrat', sans-serif; font-weight: 600; }
+  .form-disclaimer { text-align: center; font-size: 0.72rem; color: var(--muted); margin-top: 12px; }
+
+  footer { background: var(--navy); padding: 70px 5% 30px; color: rgba(255,255,255,0.65); }
+  .footer-grid { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 48px; margin-bottom: 52px; }
+  .footer-brand .nav-logo { margin-bottom: 16px; display: inline-flex; }
+  .footer-brand p { font-size: 0.85rem; line-height: 1.75; color: rgba(255,255,255,0.5); margin-bottom: 24px; }
+  .footer-socials { display: flex; gap: 10px; }
+  .social-btn { width: 36px; height: 36px; border: 1px solid rgba(255,255,255,0.12); border-radius: 8px; display: flex; align-items: center; justify-content: center; color: rgba(255,255,255,0.5); text-decoration: none; font-size: 0.8rem; font-weight: 600; transition: border-color 0.2s, color 0.2s; }
+  .social-btn:hover { border-color: var(--amber); color: var(--amber); }
+  .footer-col h4 { font-family: 'Montserrat', sans-serif; font-size: 0.85rem; font-weight: 700; color: var(--white); margin-bottom: 18px; }
+  .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+  .footer-col ul li a { color: rgba(255,255,255,0.5); text-decoration: none; font-size: 0.82rem; transition: color 0.2s; }
+  .footer-col ul li a:hover { color: var(--amber); }
+  .footer-bottom { max-width: 1200px; margin: 0 auto; border-top: 1px solid rgba(255,255,255,0.08); padding-top: 28px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; font-size: 0.75rem; color: rgba(255,255,255,0.3); }
+
+  @keyframes fadeUp { from { opacity: 0; transform: translateY(28px); } to { opacity: 1; transform: translateY(0); } }
+  .reveal { opacity: 0; transform: translateY(24px); transition: opacity 0.6s ease, transform 0.6s ease; }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+
+  @media (max-width: 900px) {
+    .nav-links { display: none; } .hamburger { display: flex; } .hero-phone-cta { display: none; }
+    .about-grid, .contact-grid { grid-template-columns: 1fr; gap: 40px; }
+    .footer-grid { grid-template-columns: 1fr 1fr; } .form-row { grid-template-columns: 1fr; } section { padding: 70px 5%; }
+  }
+  @media (max-width: 600px) {
+    .footer-grid { grid-template-columns: 1fr; } .hero-btns { flex-direction: column; }
+    .btn-primary, .btn-secondary { width: 100%; justify-content: center; } .about-float-card { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<nav id="navbar">
+  <a href="#" class="nav-logo"><img src="247homelogo.png" alt="247homelogo"></a>
+  <div class="nav-links">
+    <div class="nav-item">
+      <button class="nav-dropdown-toggle" type="button">Services <span class="dropdown-arrow">▾</span></button>
+      <div class="dropdown-menu">
+        <a href="#services">Handyman</a>
+        <a href="#services">Home Improvement Services</a>
+        <a href="#services">Commercial / Janitorial Cleaning</a>
+        <a href="#services">Residential Cleaning</a>
+        <a href="#services">Property/Estate Cleanouts</a>
+        <a href="#services">Demolition</a>
+        <a href="#services">Property Manager & Real Estate Services</a>
+      </div>
+    </div>
+    <div class="nav-item">
+      <button class="nav-dropdown-toggle" type="button">Local Coverage <span class="dropdown-arrow">▾</span></button>
+      <div class="dropdown-menu">
+        <a href="#areas">Union County, N.J.</a>
+        <a href="#areas">Middlesex County, N.J.</a>
+        <a href="#areas">Essex County, N.J.</a>
+        <a href="#areas">Staten Island, N.Y.</a>
+        <a href="#areas">Gloucester County, N.J.</a>
+        <a href="#areas">Camden County, N.J.</a>
+      </div>
+    </div>
+    <div class="nav-item">
+      <button class="nav-dropdown-toggle" type="button">Pricing <span class="dropdown-arrow">▾</span></button>
+      <div class="dropdown-menu">
+        <a href="#pricing">Handyman Pricing</a>
+        <a href="#pricing">Cleaning Service Pricing</a>
+      </div>
+    </div>
+    <div class="nav-item">
+      <button class="nav-dropdown-toggle" type="button">More <span class="dropdown-arrow">▾</span></button>
+      <div class="dropdown-menu">
+        <a href="#contact">Get a Quote</a>
+        <a href="#faq">FAQ</a>
+        <a href="#careers">Join Our Team</a>
+        <a href="#subcontractor">Subcontractor Application</a>
+        <a href="#blog">Blog</a>
+      </div>
+    </div>
+    
+    <a href="#contact" class="nav-cta">Get a Quote</a>
+  </div>
+  <div class="nav-phone">Call: <strong>(877) 444-0247</strong></div>
+  <div class="hamburger" id="hamburger" onclick="toggleMenu()"><span></span><span></span><span></span></div>
+</nav>
+<div class="mobile-nav" id="mobileNav">
+  <a href="#services" onclick="toggleMenu()">Handyman</a>
+  <a href="#services" onclick="toggleMenu()">Home Improvement Services</a>
+  <a href="#services" onclick="toggleMenu()">Commercial / Janitorial Cleaning</a>
+  <a href="#services" onclick="toggleMenu()">Residential Cleaning</a>
+  <a href="#services" onclick="toggleMenu()">Property/Estate Cleanouts</a>
+  <a href="#services" onclick="toggleMenu()">Demolition</a>
+  <a href="#services" onclick="toggleMenu()">Property Manager & Real Estate Services</a>
+  <a href="#about" onclick="toggleMenu()">About Us</a>
+  <a href="#areas" onclick="toggleMenu()">Service Areas</a>
+  <a href="#reviews" onclick="toggleMenu()">Reviews</a>
+  <a href="#contact" onclick="toggleMenu()">Get a Quote</a>
+  <a href="tel:8774440247" style="color: var(--amber) !important; font-weight: 700;">(877) 444-0247</a>
+</div>
+
+<section class="hero" id="home">
+  <div class="hero-grid"></div>
+  <div class="hero-glow"></div>
+  <div class="hero-content">
+    <div class="hero-eyebrow">New Jersey's Trusted Property Services</div>
+    <h1>One Call.<br><em>Does it All.</em></h1>
+    <p class="hero-sub">From deep cleaning to handyman repairs and full home improvement — 24/7 HomePro delivers dependable, professional results across NJ & Staten Island.</p>
+    <div class="hero-btns">
+      <a href="#contact" class="btn-primary">
+        <svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path d="M9 5l7 7-7 7"/></svg>
+        Get a Free Quote
+      </a>
+      <a href="tel:7327579717" class="btn-secondary">
+        <svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.81a19.79 19.79 0 01-3.07-8.64A2 2 0 012 1h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L6.09 8.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 16.92z"/></svg>
+        Call (732) 757-9717
+      </a>
+    </div>
+    <div class="hero-trust">
+      <div class="trust-item"><svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>Licensed & Insured</div>
+      <div class="trust-item"><svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>Same-Day Available</div>
+      <div class="trust-item"><svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z"/></svg>Background-Checked Team</div>
+      <div class="trust-item"><svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z"/></svg>5-Star Google Rated</div>
+    </div>
+  </div>
+  <div class="hero-phone-cta">
+    <div class="label">Call or Text Us 24/7</div>
+    <div class="number">(877) 444-0247</div>
+    <a href="#contact" class="btn-primary" style="font-size:0.85rem; padding: 11px 22px; width:100%; justify-content:center;">Text for a Fast Quote
+</a><div class="sub"><br>Tap to Text us Instantly from your phone</div>
+    <div class="rating-row"><span class="stars">★★★★★</span><span class="rating-text">5.0 Google Reviews</span></div>
+  </div>
+</section>
+
+<div class="trust-bar">
+  <div class="trust-bar-inner">
+    <div class="tb-item"><svg width="15" height="15" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>N.J. HIC Licensed #13VH13897600</div>
+    <div class="tb-item"><svg width="15" height="15" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>Same & Next Day Appointments</div>
+    <div class="tb-item"><svg width="15" height="15" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z"/></svg>All Supplies & Equipment Provided</div>
+    <div class="tb-item"><svg width="15" height="15" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>Flat-Rate Transparent Pricing</div>
+  </div>
+</div>
+
+<section class="about-section" id="about-intro">
+  <div class="about-inner">
+    <div class="about-content">
+      <div class="section-label">Professional Property Services</div>
+      <h2>Homes &amp; Businesses</h2>
+     
+      <p>Hi, I’m Gregory — Founder of 24/7 Home Pro.</p>
+      <p>After operating a successful cleaning company since 2015, I launched 24/7 Home Pro to provide expanded, full-service property solutions — all under one reliable team.</p>
+
+      <div style="margin-top:12px;"><strong>We Specialize In:</strong></div>
+      <ul class="about-list">
+        <li>Handyman Repairs &amp; Maintenance</li>
+        <li>Home Improvements</li>
+        <li>Residential &amp; Commercial / Office Cleaning</li>
+        <li>Post Construction Cleaning</li>
+        <li>Deep Cleaning</li>
+        <li>Whole House / Estate Cleanouts</li>
+      </ul>
+
+      <div style="margin-top:6px;"><strong>We focus on:</strong></div>
+      <ul class="about-list">
+        <li>Quality Work</li>
+        <li>Fair, Transparent Pricing</li>
+        <li>Reliable, Professional Service</li>
+        <li>Making Property Maintenance Easy</li>
+      </ul>
+
+      
+      
+    </div>
+    <div class="about-image">
+      <img src="WorkersVanLogo5.avif" alt="Workers Van Logo">
+    </div>
+  </div>
+</section>
+
+<section class="services-bg" id="services">
+  <div class="section-inner">
+    <div class="section-label">What We Do</div>
+    <h2>Full-Service <em>Property Care</em></h2>
+    <p class="section-intro">Whether it's a one-time deep clean or an ongoing maintenance plan, our skilled team handles it all — so you don't have to.</p>
+    <div class="services-grid">
+      <div class="service-card reveal">
+        <div class="service-icon"><svg width="24" height="24" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8"><path d="M14.7 6.3a1 1 0 000 1.4l1.6 1.6a1 1 0 001.4 0l3.77-3.77a6 6 0 01-7.94 7.94l-6.91 6.91a2.12 2.12 0 01-3-3l6.91-6.91a6 6 0 017.94-7.94l-3.76 3.76z"/></svg></div>
+        <h3>Handyman Services</h3>
+        <p>Doors, drywall, plumbing fixes, electrical repairs, tile work, caulking, weatherstripping and more — handled by skilled, vetted professionals.</p>
+        <a href="#contact" class="service-link">Get a Quote →</a>
+      </div>
+      <div class="service-card reveal">
+        <div class="service-icon"><svg width="24" height="24" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></div>
+        <h3>Home Improvement</h3>
+        <p>Flooring, painting, trim work, cabinet installation, bathroom renovations and other upgrades that add real value to your home.</p>
+        <a href="#contact" class="service-link">Get a Quote →</a>
+      </div>
+      <div class="service-card reveal">
+        <div class="service-icon"><svg width="24" height="24" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg></div>
+        <h3>Residential Cleaning</h3>
+        <p>Regular cleaning, deep cleans, move-in/move-out, and post-construction cleanup. We bring all supplies — you walk into a spotless home.</p>
+        <a href="#contact" class="service-link">View Pricing →</a>
+      </div>
+      <div class="service-card reveal">
+        <div class="service-icon"><svg width="24" height="24" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8"><path d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/></svg></div>
+        <h3>Commercial / Janitorial</h3>
+        <p>Office spaces, retail, medical facilities and more — reliable recurring janitorial service to keep your business looking its best.</p>
+        <a href="#contact" class="service-link">Get a Quote →</a>
+      </div>
+      <div class="service-card reveal">
+        <div class="service-icon"><svg width="24" height="24" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8"><path d="M5 8h14M5 8a2 2 0 110-4h14a2 2 0 110 4M5 8v10a2 2 0 002 2h10a2 2 0 002-2V8m-9 4h4"/></svg></div>
+        <h3>Estate & Property Cleanouts</h3>
+        <p>Full estate, hoarder, and foreclosure cleanouts. Junk removal, debris haul-off, and demolition — leaving the property clean and ready.</p>
+        <a href="#contact" class="service-link">Get a Quote →</a>
+      </div>
+      <div class="service-card reveal">
+        <div class="service-icon"><svg width="24" height="24" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8"><path d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z"/></svg></div>
+        <h3>Property Manager Services</h3>
+        <p>Turn-key solutions for landlords, property managers and real estate agents. Tenant turnovers, maintenance calls, inspections and more.</p>
+        <a href="#contact" class="service-link">Learn More →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="stats-section">
+  <div class="stats-grid">
+    <div class="stat-item reveal"><div class="stat-num" data-target="10">0</div><div class="stat-label">Years in Business</div></div>
+    <div class="stat-item reveal"><div class="stat-num" data-target="5000">0</div><div class="stat-label">Jobs Completed</div></div>
+    <div class="stat-item reveal"><div class="stat-num" data-target="12">0</div><div class="stat-label">Counties Served</div></div>
+    <div class="stat-item reveal"><div class="stat-num" data-target="100">0</div><div class="stat-label">% Satisfaction Guaranteed</div></div>
+    <div class="stat-item reveal"><div class="stat-num">5★</div><div class="stat-label">Google Rating</div></div>
+  </div>
+</div>
+
+<section id="about">
+  <div class="section-inner">
+    <div class="about-grid">
+      <div class="about-visual" style="position:relative;">
+        <div class="about-card-main">
+          <div class="about-founder">
+            <div class="founder-avatar">G</div>
+            <div><div class="founder-name">Gregory</div><div class="founder-title">Founder & Owner, 24/7 HomePro</div></div>
+          </div>
+          <p class="about-quote">After operating a successful cleaning company since 2015, I launched 24/7 Home Pro to provide expanded, full-service property solutions — all under one reliable team you can count on.</p>
+          <div style="margin-top: 28px; display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
+            <div style="background: rgba(255,255,255,0.06); border-radius: 10px; padding: 16px;"><div style="font-family:'Montserrat',sans-serif;font-size:1.6rem;font-weight:800;color:var(--amber);">2015</div><div style="font-size:0.72rem;color:rgba(255,255,255,0.45);margin-top:4px;">Founded</div></div>
+            <div style="background: rgba(255,255,255,0.06); border-radius: 10px; padding: 16px;"><div style="font-family:'Montserrat',sans-serif;font-size:1.6rem;font-weight:800;color:var(--amber);">NJ+NY</div><div style="font-size:0.72rem;color:rgba(255,255,255,0.45);margin-top:4px;">Service Region</div></div>
+          </div>
+        </div>
+        <div class="about-float-card">
+          <div class="float-icon"><svg width="22" height="22" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg></div>
+          <div class="float-text"><strong>Licensed, Bonded & Insured</strong><span>N.J. HIC #13VH13897600</span></div>
+        </div>
+      </div>
+      <div class="about-text reveal">
+        <div class="section-label">Our Story</div>
+        <h2>Your Go-To Team for <em>Home & Business</em> Property Care</h2>
+        <p>We started as a cleaning company and grew into a full-service property solutions team because our customers kept asking for more. Today, 24/7 HomePro handles everything from a one-time deep clean to a full kitchen remodel — one call, one team, no hassle.</p>
+        <ul class="about-checklist">
+          <li><div class="check-icon">✓</div>Handyman Repairs & Routine Maintenance</li>
+          <li><div class="check-icon">✓</div>Home Improvements & Renovation Work</li>
+          <li><div class="check-icon">✓</div>Residential & Commercial Office Cleaning</li>
+          <li><div class="check-icon">✓</div>Post-Construction & Deep Cleaning</li>
+          <li><div class="check-icon">✓</div>Estate Cleanouts & Property Demolition</li>
+          <li><div class="check-icon">✓</div>Property Manager & Real Estate Solutions</li>
+        </ul>
+        <a href="#contact" class="btn-primary" style="display:inline-flex;">Schedule a Visit →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="why-bg">
+  <div class="section-inner">
+    <div class="section-label">Why 24/7 HomePro</div>
+    <h2>The <em>Smarter Choice</em> for Property Services</h2>
+    <p class="section-intro">We built this company around what homeowners and businesses actually need — reliable people, fair prices, and work that holds up.</p>
+    <div class="why-grid">
+      <div class="why-card reveal"><div class="why-num">01</div><h3>Work Done Right the First Time</h3><p>Skilled, vetted professionals who take pride in every detail. No guesswork, no shortcuts — just great results you can see and trust.</p></div>
+      <div class="why-card reveal"><div class="why-num">02</div><h3>Clear Rates, No Surprises</h3><p>Flat-rate and transparent pricing before any work begins. No hidden fees, no upsells, no awkward haggling. You know the cost upfront.</p></div>
+      <div class="why-card reveal"><div class="why-num">03</div><h3>Fast, Responsive Service</h3><p>Same-day and next-day appointments available. We respond quickly and arrive when we say we will — no waiting around.</p></div>
+      <div class="why-card reveal"><div class="why-num">04</div><h3>Family-Owned, Community-Focused</h3><p>Locally operated and deeply invested in NJ communities. We treat your home the way we'd want ours treated — with care and respect.</p></div>
+    </div>
+  </div>
+</section>
+
+<section id="reviews">
+  <div class="section-inner">
+    <div class="section-label">Client Testimonials</div>
+    <h2>What Our <em>Clients Say</em></h2>
+    <p class="section-intro">Don't take our word for it — here's what real customers across NJ and Staten Island have to say.</p>
+    <div class="reviews-grid">
+      <div class="review-card reveal">
+        <div class="review-stars">★★★★★</div>
+        <p class="review-text">I have been a customer for almost 10 years. Great service. Always a satisfied customer. Not one complaint. The team does a great job every single time.</p>
+        <div class="reviewer"><div class="reviewer-avatar" style="background:#e8f4fd;">D</div><div><div class="reviewer-name">Donna P.</div><div class="reviewer-loc">Rahway, NJ · Google Review</div></div></div>
+      </div>
+      <div class="review-card reveal">
+        <div class="review-stars">★★★★★</div>
+        <p class="review-text">The cleaners are efficient, pleasant, prompt and diligent. Owner Greg is very accommodating with scheduling and sends appointment reminders. Highly recommend!</p>
+        <div class="reviewer"><div class="reviewer-avatar" style="background:#fef3e2;">S</div><div><div class="reviewer-name">Sue P.</div><div class="reviewer-loc">Linden, NJ · Google Review</div></div></div>
+      </div>
+      <div class="review-card reveal">
+        <div class="review-stars">★★★★★</div>
+        <p class="review-text">I have been using this cleaning service for many years. The team is very friendly and professional. They do a consistently great job — I would absolutely recommend them.</p>
+        <div class="reviewer"><div class="reviewer-avatar" style="background:#f0fdf4;">R</div><div><div class="reviewer-name">Robin K.</div><div class="reviewer-loc">Staten Island, NY · Google Review</div></div></div>
+      </div>
+    </div>
+    <div style="text-align:center;margin-top:40px;">
+      <a href="https://www.google.com/maps/place/24%2F7+Home+Pro/" target="_blank" class="btn-secondary" style="display:inline-flex;border-color:var(--border);color:var(--navy);">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z"/></svg>
+        See All Google Reviews
+      </a>
+    </div>
+  </div>
+</section>
+
+<section class="areas-section" id="areas">
+  <div class="section-inner">
+    <div class="section-label" style="color:var(--amber);">Coverage</div>
+    <h2>Proudly Serving <em>NJ & New York</em></h2>
+    <p class="section-intro">Our team operates across 12+ counties throughout New Jersey and Staten Island, NY.</p>
+    <div class="areas-grid">
+      <div class="area-card"><div class="area-dot"></div><div><div class="area-name">Union County</div><div class="area-state">New Jersey</div></div></div>
+      <div class="area-card"><div class="area-dot"></div><div><div class="area-name">Middlesex County</div><div class="area-state">New Jersey</div></div></div>
+      <div class="area-card"><div class="area-dot"></div><div><div class="area-name">Essex County</div><div class="area-state">New Jersey</div></div></div>
+      <div class="area-card"><div class="area-dot"></div><div><div class="area-name">Somerset County</div><div class="area-state">New Jersey</div></div></div>
+      <div class="area-card"><div class="area-dot"></div><div><div class="area-name">Morris County</div><div class="area-state">New Jersey</div></div></div>
+      <div class="area-card"><div class="area-dot"></div><div><div class="area-name">Gloucester County</div><div class="area-state">New Jersey</div></div></div>
+      <div class="area-card"><div class="area-dot"></div><div><div class="area-name">Camden County</div><div class="area-state">New Jersey</div></div></div>
+      <div class="area-card"><div class="area-dot"></div><div><div class="area-name">Burlington County</div><div class="area-state">New Jersey</div></div></div>
+      <div class="area-card"><div class="area-dot"></div><div><div class="area-name">Atlantic County</div><div class="area-state">New Jersey</div></div></div>
+      <div class="area-card"><div class="area-dot" style="background:#fff;"></div><div><div class="area-name">Staten Island</div><div class="area-state">New York</div></div></div>
+    </div>
+    <p style="color:rgba(255,255,255,0.4);font-size:0.8rem;margin-top:22px;">Not sure if we cover your area? <a href="#contact" style="color:var(--amber);text-decoration:underline;">Get in touch</a> and we'll let you know.</p>
+  </div>
+</section>
+
+<section id="contact">
+  <div class="section-inner">
+    <div class="contact-grid">
+      <div class="contact-info reveal">
+        <div class="section-label">Get a Quote</div>
+        <h2>Tell Us About <em>Your Project</em></h2>
+        <p>Fill out the form and we'll respond within a few hours. For urgent requests, give us a call or text — available 7 days a week.</p>
+        <div class="contact-methods">
+          <a href="tel:8774440247" class="contact-method">
+            <div class="cm-icon"><svg width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/></svg></div>
+            <div><div class="cm-label">Toll-Free</div><div class="cm-value">(877) 444-0247</div></div>
+          </a>
+          <a href="tel:7327579717" class="contact-method">
+            <div class="cm-icon"><svg width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z"/></svg></div>
+            <div><div class="cm-label">Text or Call Local</div><div class="cm-value">(732) 757-9717</div></div>
+          </a>
+          <a href="mailto:Info@247HomePro.com" class="contact-method">
+            <div class="cm-icon"><svg width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg></div>
+            <div><div class="cm-label">Email Us</div><div class="cm-value">Info@247HomePro.com</div></div>
+          </a>
+        </div>
+        <div class="license-badge"><svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg><span>N.J. HIC License: <strong>#13VH13897600</strong></span></div>
+      </div>
+      <div class="form-card reveal">
+        <h3>Request a Free Quote</h3>
+        <p class="sub">Upload a photo of the job for a faster, more accurate estimate.</p>
+        <div class="form-row">
+          <div class="form-group"><label>First Name *</label><input type="text" placeholder="John"></div>
+          <div class="form-group"><label>Last Name *</label><input type="text" placeholder="Smith"></div>
+        </div>
+        <div class="form-row">
+          <div class="form-group"><label>Email Address *</label><input type="email" placeholder="john@email.com"></div>
+          <div class="form-group"><label>Phone Number *</label><input type="tel" placeholder="(732) 555-0123"></div>
+        </div>
+        <div class="form-row">
+          <div class="form-group"><label>Town & Zip Code *</label><input type="text" placeholder="Rahway, 07065"></div>
+          <div class="form-group"><label>Company Name</label><input type="text" placeholder="Optional"></div>
+        </div>
+        <div class="form-full form-group">
+          <label>Service Requested *</label>
+          <select>
+            <option value="">Select a service...</option>
+            <option>Handyman Services</option>
+            <option>Home Improvement</option>
+            <option>Residential Cleaning</option>
+            <option>Commercial / Janitorial Cleaning</option>
+            <option>Estate / Property Cleanout</option>
+            <option>Property Manager Services</option>
+            <option>Post-Construction Cleanup</option>
+            <option>Other / Not Sure</option>
+          </select>
+        </div>
+        <div class="form-full form-group">
+          <label>Preferred Date & Time</label>
+          <input type="text" placeholder="e.g. Weekday mornings, ASAP, June 15...">
+        </div>
+        <div class="form-full form-group" style="margin-bottom:20px;">
+          <label>Description of Work *</label>
+          <textarea placeholder="Tell us what needs to be done — include any relevant details or dimensions..."></textarea>
+        </div>
+        <button class="btn-primary form-submit" type="button">Send My Quote Request →</button>
+        <p class="form-disclaimer">We typically respond within 2–4 hours. No spam, ever.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <!-- <a href="#" class="nav-logo"><img src="247homelogo.png" alt="247homelogo"></a> -->
+      <p> From Deep Cleaning to Handyman Repairs and Home Improvement Projects, 24/7 Home Pro delivers Dependable, Professional results! Your Go-To Property Services Team Across NJ. <br>New Jersey's trusted all-in-one property services team. From cleaning to handyman repairs and home improvement — one call, one team.
+        <br><br>Proudly Serving:
+Union, Middlesex, Essex, Somerset & Morris Counties, NJ
+Gloucester, Camden, Burlington & Atlantic Counties, NJ
+Staten Island, NY
+
+All-in-One Solutions for Your Home or Business
+      </p>
+      <div class="footer-socials">
+        <a href="https://www.instagram.com/247_homepro/" target="_blank" class="social-btn">IG</a>
+        <a href="https://www.facebook.com/247HomePro" target="_blank" class="social-btn">FB</a>
+        <a href="http://www.linkedin.com/in/247homepro" target="_blank" class="social-btn">LI</a>
+      </div>
+    </div>
+    <div class="footer-col">
+      <h4>Services</h4>
+      <ul>
+        <li><a href="#services">Handyman</a></li>
+        <li><a href="#services">Home Improvement</a></li>
+        <li><a href="#services">Residential Cleaning</a></li>
+        <li><a href="#services">Commercial Cleaning</a></li>
+        <li><a href="#services">Estate Cleanouts</a></li>
+        <li><a href="#services">Property Manager</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Service Areas</h4>
+      <ul>
+        <li><a href="#areas">Union County, NJ</a></li>
+        <li><a href="#areas">Middlesex County, NJ</a></li>
+        <li><a href="#areas">Essex County, NJ</a></li>
+        <li><a href="#areas">Gloucester County, NJ</a></li>
+        <li><a href="#areas">Camden County, NJ</a></li>
+        <li><a href="#areas">Staten Island, NY</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Contact</h4>
+      <ul>
+        <li><a href="tel:8774440247">(877) 444-0247</a></li>
+        <li><a href="tel:7327579717">(732) 757-9717</a></li>
+        <li><a href="mailto:Info@247HomePro.com">Info@247HomePro.com</a></li>
+        <li><a href="#contact">Get a Quote</a></li>
+        <li><a href="#">FAQ</a></li>
+        <li><a href="#">Blog</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <div>© 2025 24/7 HomePro. All rights reserved. N.J. HIC #13VH13897600</div>
+    <div style="display:flex;gap:20px;">
+      <a href="#" style="color:inherit;text-decoration:none;">Privacy Policy</a>
+      <a href="#" style="color:inherit;text-decoration:none;">Terms of Service</a>
+      <a href="#" style="color:inherit;text-decoration:none;">Sub-Contractor Application</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+  const navbar = document.getElementById('navbar');
+  window.addEventListener('scroll', () => { navbar.classList.toggle('scrolled', window.scrollY > 50); });
+  function toggleMenu() { document.getElementById('mobileNav').classList.toggle('open'); }
+  const revealEls = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((e, i) => { if (e.isIntersecting) { setTimeout(() => e.target.classList.add('visible'), i * 80); observer.unobserve(e.target); } });
+  }, { threshold: 0.1 });
+  revealEls.forEach(el => observer.observe(el));
+  function animateCounter(el) {
+    const target = parseInt(el.dataset.target);
+    if (!target) return;
+    const duration = 1800; const startTime = performance.now();
+    const suffix = target >= 100 ? '%' : '+';
+    const update = (now) => {
+      const progress = Math.min((now - startTime) / duration, 1);
+      const eased = 1 - Math.pow(1 - progress, 3);
+      const current = Math.floor(eased * target);
+      el.textContent = target >= 1000 ? current.toLocaleString() + suffix : current + suffix;
+      if (progress < 1) requestAnimationFrame(update);
+    };
+    requestAnimationFrame(update);
+  }
+  const statObserver = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) { animateCounter(e.target); statObserver.unobserve(e.target); } });
+  }, { threshold: 0.5 });
+  document.querySelectorAll('[data-target]').forEach(el => statObserver.observe(el));
+</script>
+</body>
+</html>
